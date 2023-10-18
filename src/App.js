@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import HomePage from './Pages/Home/HomePage';
-import AboutPage from './Pages/Home/AboutPage';
-import FormPage from './Pages/Home/FormPage';
+import HomePage from './Pages/HomePage/HomePage';
+import AboutPage from './Pages/HomePage/AboutPage';
+import FormPage from './Pages/FormPage/FormPage';
 const App = () => {
   return (
     <>
