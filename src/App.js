@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './Pages/HomePage/HomePage';
-import AboutPage from './Pages/HomePage/AboutPage';
+import AboutPage from './Pages/AboutPage/AboutPage';
 import FormPage from './Pages/FormPage/FormPage';
 const App = () => {
   return (
