@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import HomePage from './Pages/HomePage/HomePage';
 import AboutPage from './Pages/AboutPage/AboutPage';
 import FormPage from './Pages/FormPage/FormPage';
+import MapPage from './Pages/MapPage/MapPage';
 const App = () => {
   return (
     <>
@@ -11,6 +12,7 @@ const App = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/form" element={<FormPage />} />
+          <Route path="/map" element={<MapPage />} />
           {/* <Route path="/*" element={<FormPage />} /> */}
         </Routes>
       </Router>
