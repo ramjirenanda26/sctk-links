@@ -1,23 +1,28 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import React from "react";
+import { Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import "./home.css";
 
 const Hero = () => {
   const navigate = useNavigate();
 
   return (
     <>
-      <Container className="hero">
-        <div className="d-flex">
-          <div className="wrap-text">
-            <h1 className="title">HopePoints</h1>
-            <p className="subtitle">
-              Kami hadir untuk mendengar dan membantu Anda mengatasi kekerasan yang dialami perempuan dan anak-anak. Laporkan kekerasan sekarang dan bersama-sama kita wujudkan dunia yang aman bagi perempuan dan anak-anak.
-            </p>
-            <button onClick={() => navigate('/form')}>Laporkan!</button>
+      <div className="hero">
+        <Container>
+          <div className="d-flex">
+            <div className="wrap-text">
+              <h1 className="title">
+                Ayo Bergabung <br /> menjadi <br /> Konsumen SCTK!
+              </h1>
+              <p>
+                Sayangi lingkungan dengan tidak menggunakan <br /> Air Bawah Tanah (ABT) dengan berlebihan!
+              </p>
+              <button onClick={() => navigate("/form")}>Daftar</button>
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </div>
     </>
   );
 };
