@@ -1,0 +1,101 @@
+footer {
+  background-color: #dff6ff;
+  padding-top: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+.footer-info {
+  margin-bottom: 10px;
+}
+
+.footer-logo {
+  font-size: 1rem;
+  font-weight: 600;
+  color: black;
+  text-decoration: none;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.footer-logo:hover {
+  color: black;
+}
+
+.footer-logo > img {
+  width: 96px;
+  margin-right: 5px;
+}
+
+.footer-text {
+  font-size: 1rem;
+  text-align: left;
+  margin: 0px;
+}
+
+.footer-team {
+  margin-bottom: 20px;
+}
+
+.footer-team > h5 {
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-item-name {
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.footer-item-name > a {
+  font-size: 1rem;
+  font-weight: 400;
+  color: black;
+  text-decoration: none;
+}
+
+.footer-item-name > a:hover {
+  color: #2d31fa;
+  font-weight: bold;
+}
+
+.footer-social {
+  margin-bottom: 10px;
+}
+
+.footer-social > h5 {
+  margin-bottom: 5px;
+  text-align: center;
+}
+
+.footer-item-social {
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.footer-item-social > a {
+  font-size: 2rem;
+  font-weight: 400;
+  color: black;
+  text-decoration: none;
+}
+
+.footer-item-social > span {
+  margin-left: 5px;
+}
+
+.footer-item-social > a:hover {
+  color: #2d31fa;
+}
+
+@media screen and (max-width: 575px) {
+  .footer-text {
+    font-size: 1rem;
+    text-align: center;
+  }
+}
