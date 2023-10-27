@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import Map, { NavigationControl, ScaleControl, GeolocateControl, Source, Layer, Marker, Popup } from 'react-map-gl';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import Map, { NavigationControl, ScaleControl, GeolocateControl, Marker, Popup } from 'react-map-gl';
 const token = 'pk.eyJ1IjoicmVuYW5kYTI2IiwiYSI6ImNsaHgxMTkzdzBsZWkzbW4wMnZ5cDd0OTgifQ.ubLqseZPFD3Ym8ENEzvbCw';
 
 const MapComponent = () => {
-  const navigate = useNavigate();
   const [selectedMarker, setSelectedMarker] = useState(null);
   const [viewport, setViewPort] = useState({
     longitude: 106.33834462741254,
