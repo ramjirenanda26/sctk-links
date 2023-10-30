@@ -7,8 +7,8 @@ nav.navbar a.navbar-brand {
 }
 
 nav.navbar a.navbar-brand > img {
-  width: 10%;
-  height: 10%;
+  width: 44px;
+  height: 44px;
 }
 
 nav.navbar .navbar-nav .nav-link.navbar-link {

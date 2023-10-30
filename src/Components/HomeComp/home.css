@@ -140,13 +140,6 @@ li {
   color: #051367;
 }
 
-.featureForm p {
-  margin-top: 5px;
-  font-size: 16px;
-  text-align: center;
-  color: #051367;
-}
-
 .featureForm i {
   font-size: 10rem;
   text-align: center;
@@ -436,8 +429,16 @@ li {
     margin-right: 9%;
   }
 
-  .featureForm p {
-    display: none;
+  .featureForm h2 {
+    margin-top: 0px;
+    font-weight: 700;
+  }
+
+  .featureForm i {
+    font-size: 7rem;
+    text-align: center;
+    font-weight: 400;
+    color: #051367;
   }
 
   .feature > button {
