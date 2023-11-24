@@ -1,9 +1,9 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import { AiFillInstagram } from "react-icons/ai";
-import { CgWebsite } from "react-icons/cg";
-import "./footer.css";
-import logo from "../../assets/logo-sctk.png";
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { AiFillInstagram } from 'react-icons/ai';
+import { CgWebsite } from 'react-icons/cg';
+import './footer.css';
+import logo from '../../assets/logo-sctk.png';
 
 const Footer = () => {
   return (

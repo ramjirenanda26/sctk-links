@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Form } from 'react-bootstrap';
-import Map, { Marker, NavigationControl, ScaleControl, GeolocateControl } from 'react-map-gl';
+import { doc, collection, setDoc, GeoPoint, Timestamp } from 'firebase/firestore';
+import { db, storage } from '../../Config/firebase';
+import MapGL, { Marker, NavigationControl, ScaleControl, GeolocateControl } from 'react-map-gl';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { GetUserById } from '../../Utils/crudData';
+import Swal from 'sweetalert2';
 
 const token = 'pk.eyJ1IjoicmVuYW5kYTI2IiwiYSI6ImNsaHgxMTkzdzBsZWkzbW4wMnZ5cDd0OTgifQ.ubLqseZPFD3Ym8ENEzvbCw';
 const FormReportComp = () => {
   //maps
-  const [newPlace, setNewPlace] = useState(null); // [longitude, latitude
+  const [newPlace, setNewPlace] = useState(null);
   const [viewport, setViewPort] = useState({
     longitude: 106.33834462741254,
     latitude: -6.199113200732568,
@@ -50,6 +55,8 @@ const FormReportComp = () => {
 
   const usersData = localStorage.getItem('user');
   const user = JSON.parse(usersData);
+  const userData = user.user;
+  const uid = userData.uid;
 
   const [users, setUser] = useState(null);
   const [company, setCompany] = useState('');
@@ -60,7 +67,6 @@ const FormReportComp = () => {
   const [product, setProduct] = useState('');
   const [buildingStatus, setBuildingStatus] = useState('');
   const [tglkejadian, setTglKejadian] = useState('');
-  const [description, setDescription] = useState('');
   const [useProd, setUseProd] = useState(false);
   const [useMachine, setUseMachine] = useState(false);
   const [useConsume, setUseConsume] = useState(false);
@@ -69,44 +75,120 @@ const FormReportComp = () => {
   const [file, setFile] = useState('');
   const [data, setData] = useState({});
 
+  useEffect(() => {
+    const uploadFile = () => {
+      const name = new Date().getTime() + file.name;
+      const storageRef = ref(storage, name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused');
+              break;
+            case 'running':
+              console.log('Upload is running');
+              break;
+            default:
+              break;
+          }
+        },
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setData((prev) => ({ ...prev, img: downloadURL }));
+          });
+        }
+      );
+    };
+
+    if (file) {
+      uploadFile();
+    }
+  }, [file]);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Data lokasi
-    const locationData = {
-      latitude: newPlace?.lat,
-      longitude: newPlace?.long,
-    };
+    try {
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to submit the form?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Submit',
+        cancelButtonText: 'Cancel',
+        reverseButtons: true,
+      });
 
-    const formData = {
-      company,
-      director,
-      address,
-      phone,
-      business,
-      product,
-      buildingStatus,
-      useProd,
-      useMachine,
-      useConsume,
-      useDomestic,
-      waterUsage,
-      tglkejadian,
-      description,
-      file, // File yang diupload (bukti gambar)
-      // ... (Tambahkan formulir lainnya jika ada)
-    };
+      if (result.isConfirmed) {
+        const timestamp = Timestamp.fromDate(new Date());
+        const date = timestamp.toDate();
+        const dateString = date.toLocaleString('id-ID', {
+          timeZone: 'Asia/Jakarta',
+          dateStyle: 'long',
+          timeStyle: 'medium',
+        });
+        const idRegistration = 'regist' + new Date().getTime();
+        const img = data.img ? data.img : null;
 
-    console.log('Data Lokasi:', locationData);
+        const registrationData = {
+          uid: uid,
+          idRegistration: idRegistration,
+          tgl: dateString,
+          company: company,
+          director: director,
+          address: address,
+          phone: phone,
+          business: business,
+          product: product,
+          buildingStatus: buildingStatus,
+          useProd: useProd,
+          useMachine: useMachine,
+          useConsume: useConsume,
+          useDomestic: useDomestic,
+          waterUsage: waterUsage,
+          img: img, // Menggunakan null jika URL tidak tersedia
+          status: 'pending',
+          location: new GeoPoint(newPlace.lat, newPlace.long),
+        };
 
-    console.log('Data Formulir:', formData);
+        const registRef = collection(db, 'registration');
+        const registDocRef = doc(registRef, idRegistration);
+        await setDoc(registDocRef, registrationData);
+
+        Swal.fire({
+          title: 'Berhasil',
+          text: 'Data laporan berhasil disubmit, Klik OK untuk melihat status laporan',
+          icon: 'success',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = '/profile/list';
+          }
+        });
+      } else {
+      }
+    } catch (error) {
+      console.error('Error menyimpan data laporan:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Gagal menyimpan data laporan',
+        icon: 'error',
+      });
+    }
   };
 
   const handleRadioChange = (event) => {
     const { name, value } = event.target;
 
     switch (name) {
-      case 'jenisKekerasan':
+      case 'statusBangunan':
         setBuildingStatus(value);
         break;
       default:
@@ -122,9 +204,9 @@ const FormReportComp = () => {
         setUseProd(checked);
         break;
       case 'mesin':
-        setUseProd(checked);
+        setUseMachine(checked);
         break;
-      case 'konsumsi':
+      case 'minum':
         setUseConsume(checked);
         break;
       case 'domestik':
@@ -132,6 +214,14 @@ const FormReportComp = () => {
         break;
       default:
         break;
+    }
+
+    validateCheckboxes();
+  };
+
+  const validateCheckboxes = () => {
+    if (!useProd && !useMachine && !useConsume && !useDomestic) {
+      alert('Pilih setidaknya satu checkbox!');
     }
   };
 
@@ -148,11 +238,12 @@ const FormReportComp = () => {
           {/* <div className='col-md-6'> */}
           <Card>
             <Card.Header>
-              <h3 className="form-subtitle-page">Lakukan Pendaftaran Layanan Sambung Baru</h3>
+              <h3 className="form-subtitle-page">Lakukan Pendaftaran Sambung Baru Pipa PT Sarana Catur Tirtakelola</h3>
             </Card.Header>
+
             <Card.Body className="">
               <Form.Group className="mb-3" controlId="formGroupName">
-                <Form.Label className="fw-bold">Informasi Pendaftar</Form.Label>
+                <Form.Label className="fw-bold">Infromasi Pelapor</Form.Label>
                 <Card>
                   <Card.Body
                     style={{
@@ -211,8 +302,8 @@ const FormReportComp = () => {
                 <Form.Group className="mb-3" controlId="formGroupName">
                   <Form.Label>Kepemilikan Bangunan</Form.Label>
                   <div>
-                    <Form.Check type="radio" label="Milik Sendiri" name="jenisKekerasan" value="Milik Sendiri" checked={buildingStatus === 'Milik Sendiri'} onChange={handleRadioChange} />
-                    <Form.Check type="radio" label="Sewa" name="jenisKekerasan" value="Sewa" checked={buildingStatus === 'Sewa'} onChange={handleRadioChange} />
+                    <Form.Check type="radio" label="Milik Sendiri" name="statusBangunan" value="Milik Sendiri" checked={buildingStatus === 'Milik Sendiri'} onChange={handleRadioChange} />
+                    <Form.Check type="radio" label="Sewa" name="statusBangunan" value="Sewa" checked={buildingStatus === 'Sewa'} onChange={handleRadioChange} />
                   </div>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupName">
@@ -286,10 +377,10 @@ const FormReportComp = () => {
                   </Form.Label>
                   <Form.Control type="file" onChange={(e) => setFile(e.target.files[0])} />
                 </Form.Group>
-                <label className="mb-2 fw-bold">Lokasi Kejadian</label>
+                <label className="mb-2 fw-bold">Lokasi Perusahaan</label>
                 <Card className="" style={{ width: '100%', height: '25rem' }}>
                   <div className="map-comp" style={{ width: '100%', height: '100%' }}>
-                    <Map initialViewState={viewport} mapboxAccessToken={token} mapStyle="mapbox://styles/renanda26/cli49zhib02nc01qyaka1dq8w" width="100%" height="100%" onViewportChange={setViewPort}>
+                    <MapGL initialViewState={viewport} mapboxAccessToken={token} mapStyle="mapbox://styles/renanda26/cli49zhib02nc01qyaka1dq8w" width="100%" height="100%" onViewportChange={setViewPort}>
                       {newPlace && (
                         <>
                           <Marker latitude={newPlace?.lat} longitude={newPlace?.long} offsetleft={-3.5 * viewport.zoom} offsetTop={-7 * viewport.zoom} draggable={true} onDragEnd={handleMarkerDragEnd} style={{ zIndex: 999 }}>
@@ -307,7 +398,7 @@ const FormReportComp = () => {
                       <GeolocateControl position="bottom-right" onGeolocate={handleGeolocateClick} />
                       <NavigationControl position="bottom-right" />
                       <ScaleControl />
-                    </Map>
+                    </MapGL>
                   </div>
                 </Card>
                 <p style={{ textAlign: 'center', padding: '0 20px' }}>
@@ -326,10 +417,10 @@ const FormReportComp = () => {
                   Daftar
                 </Button>
               </Form>
-              {/* </div> */}
             </Card.Body>
           </Card>
-          {/* </div> */}
+
+          <GetUserById setUser={setUser} uid={uid} />
         </div>
       </div>
     </div>
