@@ -33,51 +33,12 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/forgot" element={<ForgotPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/form" element={<FormPage />} />
           <Route path="/map" element={<MapPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/forgot" element={<ForgotPage />} />
-          <Route path="*" element={<PageNotFound />} />
-
-          <Route path="form">
-            <Route
-              index
-              element={
-                <RequireAuth requiredRole={['user']}>
-                  <FormPage />
-                </RequireAuth>
-              }
-            />
-          </Route>
-          <Route path="dashboard">
-            <Route
-              index
-              element={
-                <RequireAuth requiredRole={['admin']}>
-                  <DashRegistrationPage />
-                </RequireAuth>
-              }
-            />
-            <Route path="registration">
-              <Route
-                index
-                element={
-                  <RequireAuth requiredRole={['admin']}>
-                    <DashReportPage />
-                  </RequireAuth>
-                }
-              />
-              <Route
-                path="detail/:id"
-                element={
-                  <RequireAuth requiredRole={['admin']}>
-                    <DashDetailPage />
-                  </RequireAuth>
-                }
-              />
-            </Route>
-          </Route>
+          {/* <Route path="/*" element={<FormPage />} /> */}
         </Routes>
       </Router>
     </>
