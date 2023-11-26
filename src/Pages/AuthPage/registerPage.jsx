@@ -34,7 +34,7 @@ const RegisterPage = () => {
       <form className="login" onSubmit={handleLogin}>
         <div className="form-border">
           {/* <img src={logo} className="image-login centered" alt="Logo" /> */}
-          <h2>HopePoints</h2>
+          <h2>SCTK - Links</h2>
           <p>Please create your account!</p>
           <input type="text" placeholder="Full Name" required onChange={(e) => setName(e.target.value)} />
           <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} required />

@@ -145,7 +145,9 @@ const FormReportComp = () => {
           company: company,
           director: director,
           address: address,
-          phone: phone,
+          name: users.name,
+          tlfn: users.phone,
+          email: users.email,
           business: business,
           product: product,
           buildingStatus: buildingStatus,
@@ -216,14 +218,14 @@ const FormReportComp = () => {
         break;
     }
 
-    validateCheckboxes();
+    // validateCheckboxes();
   };
 
-  const validateCheckboxes = () => {
-    if (!useProd && !useMachine && !useConsume && !useDomestic) {
-      alert('Pilih setidaknya satu checkbox!');
-    }
-  };
+  // const validateCheckboxes = () => {
+  //   if (!useProd && !useMachine && !useConsume && !useDomestic) {
+  //     alert('Pilih setidaknya satu checkbox!');
+  //   }
+  // };
 
   const handleWaterUsageChange = (event) => {
     const { value } = event.target;

@@ -10,6 +10,9 @@ import { useContext } from 'react';
 import { AuthContext } from './Context/AuthContext';
 import ForgotPage from './Pages/AuthPage/forgotPassword';
 import PageNotFound from './Pages/NotFound/PageNotFound';
+import DashRegistrationPage from './Pages/DashboardPage/DashboardPage';
+import DashReportPage from './Pages/DashboardPage/DashRegistPage';
+import DashDetailPage from './Pages/DashboardPage/DashDetailRegistPage';
 
 const App = () => {
   const RequireAuth = ({ children, requiredRole }) => {
@@ -46,6 +49,34 @@ const App = () => {
                 </RequireAuth>
               }
             />
+          </Route>
+          <Route path="dashboard">
+            <Route
+              index
+              element={
+                <RequireAuth requiredRole={['admin']}>
+                  <DashRegistrationPage />
+                </RequireAuth>
+              }
+            />
+            <Route path="registration">
+              <Route
+                index
+                element={
+                  <RequireAuth requiredRole={['admin']}>
+                    <DashReportPage />
+                  </RequireAuth>
+                }
+              />
+              <Route
+                path="detail/:id"
+                element={
+                  <RequireAuth requiredRole={['admin']}>
+                    <DashDetailPage />
+                  </RequireAuth>
+                }
+              />
+            </Route>
           </Route>
         </Routes>
       </Router>

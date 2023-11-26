@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
-import { collectionGroup, collection, query, where, onSnapshot, doc, deleteDoc, getDocs, getDoc, updateDoc, orderBy } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, doc, deleteDoc, updateDoc, orderBy } from 'firebase/firestore';
 import { getAuth, updateProfile, reauthenticateWithCredential, updatePassword, EmailAuthProvider, deleteUser } from 'firebase/auth';
 import { db } from '../Config/firebase';
 
-const GetRegistration = ({ setRegistration, selectedStatus }) => {
+const GetRegistration = ({ setRegistrations, selectedStatus }) => {
   useEffect(() => {
-    const registrationCollection = collection(db, 'registration');
-    let registrationsQuery = registrationCollection;
+    const registrationsCollection = collection(db, 'registration');
+    let registrationsQuery = registrationsCollection;
 
     // Tambahkan orderBy untuk mengurutkan berdasarkan tanggal secara descending
     registrationsQuery = query(registrationsQuery, orderBy('tgl', 'desc'));
@@ -18,11 +18,11 @@ const GetRegistration = ({ setRegistration, selectedStatus }) => {
 
     const unsubscribe = onSnapshot(registrationsQuery, (querySnapshot) => {
       const registrationsData = querySnapshot.docs.map((doc) => doc.data());
-      setRegistration(registrationsData);
+      setRegistrations(registrationsData);
     });
 
     return () => unsubscribe();
-  }, [setRegistration, selectedStatus]);
+  }, [setRegistrations, selectedStatus]);
 
   return null;
 };
@@ -50,17 +50,17 @@ const GetDetailRegistration = ({ setRegistration, setViewPort, id }) => {
   return null;
 };
 
-const GetRegistrationByid = ({ setRegistration, uid }) => {
+const GetRegistrationByid = ({ setRegistrations, uid }) => {
   useEffect(() => {
-    const registrationCollection = collection(db, 'registration');
-    const q = query(registrationCollection, where('uid', '==', uid));
+    const registrationsCollection = collection(db, 'registration');
+    const q = query(registrationsCollection, where('uid', '==', uid));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const registrationData = querySnapshot.docs.map((doc) => doc.data());
-      setRegistration(registrationData);
+      const registrationsData = querySnapshot.docs.map((doc) => doc.data());
+      setRegistrations(registrationsData);
     });
 
     return () => unsubscribe();
-  }, [setRegistration, uid]);
+  }, [setRegistrations, uid]);
 
   return null;
 };

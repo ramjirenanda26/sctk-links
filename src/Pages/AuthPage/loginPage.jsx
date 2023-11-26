@@ -39,7 +39,7 @@ const LoginPage = () => {
             <a href="/forgot">Forgotten your password?</a>
           </div>
           <small className="privacy-policy centered">
-            By Logging in, you agree to Hope Points Privacy Policy and
+            By Logging in, you agree to SCTK-Links Privacy Policy and
             <br /> Terms of Use
           </small>
           <input type="submit" value="Log In" />

@@ -10,10 +10,9 @@
   width: 100%;
   display: block;
   box-sizing: border-box;
-  margin: 10px 0;
+  margin-top: 5px;
   padding: 14px 12px;
   font-size: 16px;
-  border-radius: 2px;
   font-family: Raleway, sans-serif;
 }
 
@@ -23,15 +22,9 @@
   transition: 0.2s;
 }
 
-.login input[type='text']:hover {
-  border-color: #ff88ba;
-  outline: none;
-  transition: all 0.2s ease-in-out;
-}
-
 .login input[type='submit'] {
   border: none;
-  background: #f94892;
+  background: #2d31fa;
   color: white;
   font-weight: bold;
   transition: 0.2s;
@@ -39,26 +32,14 @@
 }
 
 .login input[type='submit']:hover {
-  background: #fa6ea8;
+  background: #2f61d6;
 }
 
 .login h2 {
-  margin: 20px 0 0;
-  color: #f94892;
+  margin: 0px;
+  color: #ffffff;
   font-size: 28px;
   font-weight: 600;
-}
-
-.login p {
-  margin-bottom: 40px;
-}
-
-.links-register {
-  display: table;
-  width: 100%;
-  box-sizing: border-box;
-  border-top: 1px solid #c0c0c0;
-  margin-bottom: 10px;
 }
 
 .links {
@@ -73,6 +54,7 @@
   align-items: center;
   text-decoration: none;
   font-size: 0.8em;
+  color: #ffffff;
 }
 
 .links input[type='checkbox'] {
@@ -83,14 +65,18 @@
 .links a {
   display: table-cell;
   padding-top: 10px;
+  color: #ffffff;
 }
 
 .links a:first-child {
   text-align: left;
+  color: #ffffff;
 }
 
 .links a:last-child {
   text-align: right;
+  color: #ffffff;
+  font-size: 13px;
 }
 
 .login h2,
@@ -102,10 +88,6 @@
 .login a {
   text-decoration: none;
   font-size: 0.8em;
-}
-
-.login a:visited {
-  color: inherit;
 }
 
 .login a:hover {
@@ -121,18 +103,41 @@
   padding: 2rem;
   border-radius: 25px;
   overflow: hidden;
-  background-color: #f2efee;
+  background-color: rgba(93, 139, 244, 0.75);
   border: none;
   outline: none;
   border-radius: 0.25rem;
   color: black;
-  background: white;
+  background: rgba(93, 139, 244, 0.75);
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
-.privacy-policy {
-  font-size: 0.65rem;
-  text-align: center;
-  color: #858282;
+
+.Bline {
+  border-bottom: 1px solid #ffffff;
+  margin-left: 20%;
+  margin-right: 20%;
+  margin-top: 10px;
+}
+
+.form-border label {
+  color: #ffffff;
+  font-size: 13px;
+  margin-top: 15px;
+  margin-bottom: 0px;
+}
+
+.form-border .parag {
+  margin-top: 40px;
+  margin-bottom: 5px;
+}
+
+.links-register {
+  display: table;
+  width: 100%;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-top: 1px solid #c0c0c0;
+  margin-bottom: 10px;
 }
 
 .centered {
@@ -140,10 +145,4 @@
   justify-content: center;
   align-items: center;
   margin-top: 1rem;
-}
-
-.image-login {
-  display: block;
-  margin: 0 auto;
-  width: 20%;
 }
