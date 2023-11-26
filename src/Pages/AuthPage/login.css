@@ -16,13 +16,13 @@
   font-family: Raleway, sans-serif;
 }
 
-.login input[type="text"],
-.login input[type="password"] {
+.login input[type='text'],
+.login input[type='password'] {
   border: 1px solid #c0c0c0;
   transition: 0.2s;
 }
 
-.login input[type="submit"] {
+.login input[type='submit'] {
   border: none;
   background: #2d31fa;
   color: white;
@@ -31,7 +31,7 @@
   margin: 20px 0px;
 }
 
-.login input[type="submit"]:hover {
+.login input[type='submit']:hover {
   background: #2f61d6;
 }
 
@@ -57,7 +57,7 @@
   color: #ffffff;
 }
 
-.links input[type="checkbox"] {
+.links input[type='checkbox'] {
   width: 10%;
   margin-right: 5px;
 }

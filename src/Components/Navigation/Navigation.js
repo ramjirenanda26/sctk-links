@@ -1,12 +1,36 @@
-import React from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { NavLink, useLocation } from 'react-router-dom';
-
 import logo from '../../assets/logo-sctk.png';
 import './navigation.css';
+import { AuthContext } from '../../Context/AuthContext';
+import { useLogout } from '../../Utils/auth';
+import Swal from 'sweetalert2';
 
 function Navigation() {
   const location = useLocation();
+  const { dispatch } = useContext(AuthContext);
+  const isUserLoggedIn = localStorage.getItem('user');
+  console.log(isUserLoggedIn && isUserLoggedIn !== 'null');
+  const Logout = useLogout();
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'Do you want to logout?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, logout!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Logout(); // Call the logout function here
+        dispatch({ type: 'LOGOUT' });
+        Swal.fire('Logged Out', 'You have been logged out.', 'success');
+      }
+    });
+  };
 
   return (
     <Navbar bg="light" expand="lg" fixed="top">
@@ -30,14 +54,23 @@ function Navigation() {
             <Nav.Link className="navbar-link" href="/map" active={location.pathname === '/map'}>
               Map
             </Nav.Link>
-
-            <span>
-              <NavLink to="/login">
-                <button>
-                  <span>Login</span>
-                </button>
-              </NavLink>
-            </span>
+            {isUserLoggedIn && isUserLoggedIn !== 'null' ? (
+              <NavDropdown title={<i className="fa-solid fa-user"></i>} id="basic-nav-dropdown" active={location.pathname === '/profile' || location.pathname === '/profile/list' || location.pathname === '/profile/change'}>
+                <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="/profile/list">List Reports</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+              </NavDropdown>
+            ) : (
+              <span>
+                <NavLink to="/login">
+                  <button>
+                    <span>Login</span>
+                  </button>
+                </NavLink>
+              </span>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

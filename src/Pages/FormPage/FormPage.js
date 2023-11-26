@@ -1,10 +1,13 @@
-import Form from '../../Components/FormComp/FormComp';
+import React from 'react';
+import FormReportComp from '../../Components/FormComp/FormComp';
 import Navigation from '../../Components/Navigation/Navigation';
 const FormPage = () => {
   return (
     <>
-      <Form />
       <Navigation />
+      <React.StrictMode>
+        <FormReportComp />
+      </React.StrictMode>
     </>
   );
 };
