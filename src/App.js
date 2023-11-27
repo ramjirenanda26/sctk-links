@@ -13,6 +13,9 @@ import PageNotFound from './Pages/NotFound/PageNotFound';
 import DashRegistrationPage from './Pages/DashboardPage/DashboardPage';
 import DashReportPage from './Pages/DashboardPage/DashRegistPage';
 import DashDetailPage from './Pages/DashboardPage/DashDetailRegistPage';
+import ListReportProfile from './Pages/ProfilePage/listRegistration';
+import UserProfile from './Pages/ProfilePage/userProfile';
+import ChangePasswordProfile from './Pages/ProfilePage/changePassword';
 
 const App = () => {
   const RequireAuth = ({ children, requiredRole }) => {
@@ -39,6 +42,37 @@ const App = () => {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot" element={<ForgotPage />} />
           <Route path="*" element={<PageNotFound />} />
+
+          <Route path="profile">
+            <Route
+              index
+              element={
+                <RequireAuth requiredRole={['user']}>
+                  <UserProfile />
+                </RequireAuth>
+              }
+            />
+            <Route path="list">
+              <Route
+                index
+                element={
+                  <RequireAuth requiredRole={['user']}>
+                    <ListReportProfile />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="change">
+              <Route
+                index
+                element={
+                  <RequireAuth requiredRole={['user']}>
+                    <ChangePasswordProfile />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+          </Route>
 
           <Route path="form">
             <Route
