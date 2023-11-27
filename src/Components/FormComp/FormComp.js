@@ -148,6 +148,7 @@ const FormReportComp = () => {
           name: users.name,
           tlfn: users.phone,
           email: users.email,
+          phone: phone,
           business: business,
           product: product,
           buildingStatus: buildingStatus,

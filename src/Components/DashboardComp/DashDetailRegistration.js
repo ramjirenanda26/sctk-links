@@ -147,6 +147,18 @@ const DashDetailRegistration = () => {
                   )}
                 </Card.Body>
               </Card>
+              <div>
+                {/* Modify the label for latitude and longitude */}
+                <label>
+                  Latitude & Longitude:
+                  <input type="text" value={`${registration?.location.latitude}, ${registration?.location.longitude}`} readOnly />
+                </label>
+                <Form.Group controlId="formGridImg" style={{ marginBottom: '1rem' }}>
+                  <Form.Label>Gambar</Form.Label>
+                  <br />
+                  {registration?.img ? <img src={registration.img} alt="Gambar" className="img-fluid" /> : <p>Gambar tidak tersedia</p>}
+                </Form.Group>
+              </div>
             </div>
             <div className="col-md-6">
               <label className="mb-2">
@@ -175,28 +187,39 @@ const DashDetailRegistration = () => {
                   </Card>
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formGroupTitle">
-                  <Form.Label>Judul</Form.Label>
-                  <Form.Control type="text" defaultValue={registration?.title} readOnly />
+                  <Form.Group className="mb-3" controlId="formGroupName">
+                    <Form.Label>Tanggal Pendaftaran</Form.Label>
+                    <Form.Control type="dateandtime" placeholder="" defaultValue={registration?.tgl} readOnly />
+                  </Form.Group>
+                  <Form.Label>Nama Perusahaan</Form.Label>
+                  <Form.Control type="text" defaultValue={registration?.company} readOnly />
+                  <Form.Label>Nama Direksi</Form.Label>
+                  <Form.Control type="text" defaultValue={registration?.director} readOnly />
+                  <Form.Label>Nomor Telephone Perusahaan</Form.Label>
+                  <Form.Control type="text" defaultValue={registration?.phone} readOnly />
+                  <Form.Label>Jenis Usaha</Form.Label>
+                  <Form.Control type="text" defaultValue={registration?.business} readOnly />
+                  <Form.Label>Hasil Produksi</Form.Label>
+                  <Form.Control type="text" defaultValue={registration?.product} readOnly />
                 </Form.Group>
-
                 <Form.Group className="mb-3" controlId="formGroupName">
-                  <Form.Label>Tanggal Kejadian</Form.Label>
-                  <Form.Control type="dateandtime" placeholder="" defaultValue={registration?.tglkejadian} readOnly />
+                  <Form.Label>Alamat Perusahaan</Form.Label>
+                  <Form.Control type="dateandtime" placeholder="" defaultValue={registration?.address} readOnly />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formGridAddress">
-                  <Form.Label>Jenis Kekerasan</Form.Label>
-                  <Form.Control placeholder="1234 Main St" defaultValue={(registration?.kekerasanFisik ? 'Fisik ' : '') + (registration?.kekerasanPsikis ? 'Psikis ' : '') + (registration?.kekerasanSeksual ? 'Seksual' : '')} readOnly />
+                  <Form.Label>Peruntukan Air</Form.Label>
+                  <Form.Control
+                    placeholder="1234 Main St"
+                    defaultValue={[registration?.useProd ? 'Produksi' : '', registration?.useMachine ? 'Broiler/Mesin' : '', registration?.useConsume ? 'Minum' : '', registration?.useDomestic ? 'Mandi/Cuci' : ''].filter(Boolean).join(', ')}
+                    readOnly
+                  />
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formGridDescription">
-                  <Form.Label>Deskripsi</Form.Label>
-                  <Form.Control as="textarea" rows={3} defaultValue={registration?.description} readOnly />
+                <Form.Group className="mb-3" controlId="formGridAddress">
+                  <Form.Label>Besar Penggunaan Air</Form.Label>
+                  <Form.Control type="text" defaultValue={registration?.waterUsage} readOnly />
                 </Form.Group>
-                <Form.Group controlId="formGridImg" style={{ marginBottom: '1rem' }}>
-                  <Form.Label>Gambar</Form.Label>
-                  <br />
-                  {registration?.img ? <img src={registration.img} alt="Gambar" className="img-fluid" /> : <p>Gambar tidak tersedia</p>}
-                </Form.Group>
+
                 {registration?.status !== 'tolak' && (
                   <Button variant="danger" onClick={handleBatalSubmit}>
                     Tolak

@@ -39,6 +39,44 @@
   font-weight: 600;
 }
 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* Align items in the row with space in between */
+}
+
+.col-md-6 {
+  width: 48%; /* Set a width so that they can be side by side with some spacing */
+  margin-bottom: 20px; /* Add some space between the columns */
+}
+
+/* Style for latitude and longitude text boxes */
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: calc(100% - 16px); /* Adjust the width to leave space for padding */
+  padding: 8px;
+  margin-bottom: 15px;
+}
+
+/* Adjust margin for better spacing */
+.container-dashboard {
+  margin: 45px 15px 20px 15px; /* Updated margin to include space at the bottom */
+}
+
+/* Adjust map card style */
+.Card {
+  height: 100%; /* Ensure the card takes up the full height */
+}
+
+/* Add space below the map */
+.map-container {
+  margin-bottom: 20px;
+}
+
 .list-group a:hover {
   background-color: #f94892;
   border-radius: 10px;
@@ -138,5 +176,19 @@
   }
   .container-dashboard {
     margin: 45px 5px 0 5px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container-dashboard {
+    margin: 45px 5px 20px 5px; /* Adjust margin for smaller screens */
+  }
+
+  .row {
+    flex-direction: column; /* Stack columns in smaller screens */
+  }
+
+  .col-md-6 {
+    width: 100%; /* Full width for smaller screens */
   }
 }
