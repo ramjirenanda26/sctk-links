@@ -16,6 +16,7 @@ import DashDetailPage from './Pages/DashboardPage/DashDetailRegistPage';
 import ListReportProfile from './Pages/ProfilePage/listRegistration';
 import UserProfile from './Pages/ProfilePage/userProfile';
 import ChangePasswordProfile from './Pages/ProfilePage/changePassword';
+import DashAdminPage from './Pages/DashboardPage/DashAdminPage';
 
 const App = () => {
   const RequireAuth = ({ children, requiredRole }) => {
@@ -107,6 +108,16 @@ const App = () => {
                 element={
                   <RequireAuth requiredRole={['admin']}>
                     <DashDetailPage />
+                  </RequireAuth>
+                }
+              />
+            </Route>
+            <Route path="admin">
+              <Route
+                index
+                element={
+                  <RequireAuth requiredRole={['admin']}>
+                    <DashAdminPage />
                   </RequireAuth>
                 }
               />
