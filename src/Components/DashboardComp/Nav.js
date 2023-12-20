@@ -18,7 +18,7 @@ const Nav = ({ Toggle }) => {
 
   return (
     <nav className="navbar navbar-expand-sm bg-white fixed-top px-4">
-      <i className="navbar-brand fa-solid fa-align-left fs-4" onClick={Toggle} style={{ cursor: 'pointer', color: '#f94892' }}></i>
+      <i className="navbar-brand fa-solid fa-align-left fs-4" onClick={Toggle} style={{ cursor: 'pointer', color: '#0509f5' }}></i>
       <button className="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation">
         <i className="fa-solid fa-bars" style={{ cursor: 'pointer', color: '#f94892' }}></i>
       </button>
